@@ -5,20 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wireframe Visual — Koalisi CSO Indonesia @ COP30</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- React & Babel for in-browser JSX (prototype only) -->
+  <!-- React & Babel (UMD) -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <style>
     body { background: linear-gradient(180deg,#f7f7f7,white); }
-    /* prevent text selection while clicking demo controls */
     .no-select { user-select: none; }
   </style>
 </head>
 <body class="text-gray-800">
   <div id="root"></div>
 
-  <script type="text/babel">
+  <!-- IMPORTANT: add data-presets so Babel compiles JSX on GitHub Pages -->
+  <script type="text/babel" data-presets="env,react">
     const { useState } = React;
 
     const NAV_ITEMS = [
@@ -217,7 +217,7 @@
           <div>
             <SectionTitle>Objektif</SectionTitle>
             <div className="grid md:grid-cols-3 gap-4">
-              {Array.from({length:6}).map((_,i)=> <Card key={i} title={\`Objektif \${i+1}\`} lines={2} />)}
+              {Array.from({length:6}).map((_,i)=> <Card key={i} title={`Objektif ${i+1}`} lines={2} />)}
             </div>
           </div>
           <div>
@@ -268,7 +268,7 @@
         <div className="max-w-6xl mx-auto px-4 py-6 space-y-6">
           <div className="flex flex-wrap items-center gap-2">
             <Chip>Tanggal</Chip><Chip>Lokasi</Chip><Chip>Penyelenggara</Chip><Chip>Jenis</Chip>
-            <div className="ml-auto text-xs text-gray-600">Zona waktu: Belém (UTC‑3) / WIB</div>
+            <div className="ml-auto text-xs text-gray-600">Zona waktu: Belém (UTC-3) / WIB</div>
           </div>
           <div className="space-y-3">
             {Array.from({length:4}).map((_,i)=> <Card key={i} title="Judul acara" subtitle="tanggal • tempat" lines={2} cta="Tambah ke Kalender" />)}
@@ -279,7 +279,7 @@
 
     function Live(){
       return (
-        <div className="max-w-5xl mx-auto px-4 py-6 space-y-6">
+        <div className="max-w-5xl mx:auto px-4 py-6 space-y-6">
           <div className="flex flex-wrap items-center gap-2">
             <Chip active>Hari 1</Chip><Chip>Hari 2</Chip><Chip>Hari 3</Chip>
             <div className="ml-auto flex gap-2 items-center text-xs text-gray-500"><span>Filter:</span><Chip>Keuangan</Chip><Chip>Hutan</Chip><Chip>Mitigasi</Chip></div>
@@ -399,7 +399,7 @@
         <div className="min-h-screen">
           <Topbar role={role} setRole={setRole} viewport={viewport} setViewport={setViewport} page={page} setPage={setPage} />
 
-          <div className={\`mx-auto transition-all duration-200 \${viewport==='mobile'?'max-w-sm':'max-w-full'}\`}>
+          <div className={`mx-auto transition-all duration-200 ${viewport==='mobile'?'max-w-sm':'max-w-full'}`}>
             <HeaderNav setPage={setPage} />
 
             {page === 'Home' && <Home />}
@@ -421,7 +421,7 @@
               {["Beranda","Isu Prioritas","Pembaruan Live","Sumber Daya"].map((label, idx)=> {
                 const map = ["Home","Issues","Live","Library"]; const key = map[idx];
                 return (
-                  <button key={key} onClick={()=>setPage(key)} className={\`px-3 py-2 rounded \${page===key?'bg-gray-900 text-white':'text-gray-700 border border-gray-300'}\`}>{label}</button>
+                  <button key={key} onClick={()=>setPage(key)} className={`px-3 py-2 rounded ${page===key?'bg-gray-900 text-white':'text-gray-700 border border-gray-300'}`}>{label}</button>
                 );
               })}
             </div>
